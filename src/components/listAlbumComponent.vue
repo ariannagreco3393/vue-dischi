@@ -2,7 +2,7 @@
   <div class="col" >
     <div class="wrapper text-center" style="width: 10rem">
       <div class="album">
-        <img class="img-fluid" :src="album.poster" alt="" />
+        <img class="img-fluid" :src="album.poster" alt="album.title" />
       </div>
       <div class="title text-white text-uppercase">
         <h6 class="fw-bold">{{ album.title }}</h6>
