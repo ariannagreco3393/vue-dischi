@@ -1,19 +1,24 @@
 <template>
-    <section v-if="!loading">
-      <div class="container">
-        <div class="row">
-          <listAlbum :album="album" v-for="(album, index) in albums" :key="index"/>
-        </div>
+  <section v-if="!loading">
+    <div class="container">
+      <div class="row">
+        <listAlbum
+          :album="album"
+          v-for="(album, index) in albums"
+          :key="index"
+        />
       </div>
-    </section>
-    <div v-else class="d-flex justify-content-center align-item-center text-info">
-        <h1>Loading...</h1>
     </div>
+  </section>
+  <div v-else class="d-flex justify-content-center align-item-center text-info">
+    <h1>Loading...</h1>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
 import listAlbum from "@/components/listAlbumComponent.vue";
+import state from "@/state";
 
 export default {
     name: 'albumComponent',
@@ -42,6 +47,15 @@ export default {
         });
     },
   },
+   computed: {
+    filteredGenre() {
+        return this.albums.filter(album => {
+          return album.genre.toLowerCase().includes(state.selectValue.toLowerCase())
+        })
+     
+    }
+  },
+
   mounted() {
     this.callApi();
   },
@@ -49,10 +63,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-  .container {
-    max-width: 1000px;
-  }
-
-
+.container {
+  max-width: 1000px;
+}
 </style>
