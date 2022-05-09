@@ -3,7 +3,7 @@
     <nav class="navbar navbar-light">
       <div class="container-fluid menu">
         <logo />
-        <filtri v-model="selectValue" @selectGenre="selectGenre" />
+        <filtri v-model="selectValue" @change="selectGenre"/>
       </div>
     </nav>
   </header>
@@ -12,7 +12,7 @@
 <script>
 import logo from "@/components/logoComponent.vue";
 import filtri from "@/components/filtriComponent.vue";
-import state from '@/state.js';
+import state from "@/state";
 
 export default {
   name: "siteHeaderComponent",
@@ -30,8 +30,7 @@ export default {
 
   methods: {
     selectGenre(){
-      state.selectGenre = this.selectValue
-      console.log(state);
+      state.selectValue = this.selectValue
     }
   }
 
