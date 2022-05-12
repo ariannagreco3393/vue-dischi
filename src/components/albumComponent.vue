@@ -1,81 +1,48 @@
 <template>
-  <section v-if="!loading">
-    <div class="container">
-      <div class="row">
-        <listAlbum
-          :album="album"
-          v-for="(album, index) in filtered"
-          :key="index"
-        />
+  <div class="col">
+    <div class="wrapper text-center" style="width: 10rem">
+      <div class="album">
+        <img class="img-fluid" :src="album.poster" :alt="album.title" />
+      </div>
+      <div class="title text-white text-uppercase">
+        <h6 class="fw-bold">{{ album.title }}</h6>
+      </div>
+      <div class="artist">
+        <p>
+          {{ album.author }} <br />
+          {{ album.year }}
+        </p>
       </div>
     </div>
-  </section>
-  <div v-else class="d-flex justify-content-center align-item-center text-info">
-    <h1>Loading...</h1>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import listAlbum from "@/components/listAlbumComponent.vue";
-import state from "@/state";
-
 export default {
   name: "albumComponent",
-  components: {
-    listAlbum,
-  },
-  data() {
-    return {
-      API_URL: "https://flynn.boolean.careers/exercises/api/array/music",
-      albums: null,
-      loading: true,
-      error: null,
-    };
-  },
-
-  computed: {
-    filtered() {
-      return this.album.filter(album => {
-        return album.genre.toLowerCase().includes(state.selectValue.toLowerCase())
-      })
-    },
-  },
-
-  methods: {
-    callApi() {
-      axios
-        .get(this.API_URL)
-        .then((response) => {
-          this.albums = response.data.response;
-          this.loading = false;
-          
-        })
-        .catch((error) => {
-          console.error(error);
-          this.error = `Sorry There is a problem! ${error}`;
-        });
-    },
-
-    getGenres() {
-      const genre = []
-      this.album.forEach(album => {
-        if (!genre.includes(album.genre)) {
-          genre.push(album.genre)
-        }
-        
-      });
-    }
-  },
-
-  mounted() {
-    this.callApi();
-  },
+  props: {
+    album: Object
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-.container {
-  max-width: 1000px;
-}
+  .col {
+      margin: 1rem 0;
+    }
+  .wrapper {
+    padding: 1rem;
+    background-color: #2f3a46;
+    height: 300px;
+    .title {
+      margin-top: 1rem;
+    }
+    .artist {
+      color: gray;
+      margin-top: 1rem;
+      font-size: 14px;
+    }
+  }
 </style>
+
+

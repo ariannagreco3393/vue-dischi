@@ -3,7 +3,22 @@
     <nav class="navbar navbar-light">
       <div class="container-fluid menu">
         <logo />
-        <filtri v-model="selectValue" @change="selectGenre"/>
+        <select
+          v-model="selectValue"
+          @change="selectGenre"
+          name="genre"
+          id="genre"
+        >
+          <option value="">Seleziona un genere</option>
+          <option
+            :value="genre"
+            v-for="(genre, index) in getGenres"
+            :key="index"
+          >
+            {{ genre }}
+          </option>
+        </select>
+        
       </div>
     </nav>
   </header>
@@ -11,30 +26,30 @@
 
 <script>
 import logo from "@/components/logoComponent.vue";
-import filtri from "@/components/filtriComponent.vue";
 import state from "@/state";
 
 export default {
   name: "siteHeaderComponent",
   components: {
     logo,
-    filtri
   },
 
   data() {
     return {
-      selectValue: '',
-    }
-    
+      selectValue: "",
+    };
+  },
+  computed: {
+    getGenres() {
+      return state.genres;
+    },
   },
 
   methods: {
-    selectGenre(){
-      state.selectValue = this.selectValue
-    }
-  }
-
-  
+    selectGenre() {
+      state.selectValue = this.selectValue;
+    },
+  },
 };
 </script>
 

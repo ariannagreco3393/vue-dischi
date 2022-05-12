@@ -1,7 +1,8 @@
 import Vue from 'vue';
 
 const state = Vue.observable({
-    selectValue: ''
+    selectValue: '',
+    genres: ''
 })
 
 export default state
